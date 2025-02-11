@@ -30,24 +30,44 @@ fun main() {
 
    //-------------------------------------------------
 
-    val room = Room("Test Room", 5, 4, 3)
-    println("Volume: ${room.volume()} cubic meters")
-    println("Surface Area: ${room.area()} square meters")
+    val room1 = Room("Test Room", 5, 4, 3)
+    println("Volume: ${room1.volume()} cubic meters")
+    println("Surface Area: ${room1.area()} square meters")
 
-    val bedroom = Room("Bedroom", 5, 5, 2)
+    val bedroom = Room("Bedroom", 5, 5, 2 )
     val kitchen = Room("kitchen",2,2,2)
-    val owner: Person? = null
 
-    val jimmy = Person("Jimmy", 1.95, "teal")
+
+    val jimmy = Person1("jimmy", 1.95, "teal")
+
+
+
 
     jimmy.sayHello()
     jimmy.saycurrentHeight()
     jimmy.saycurrentfavColour()
     jimmy.greet()
+
+    room1.assignOwner(jimmy)
+    bedroom.assignOwner(jimmy)
+    room1.printDetails()
+
+    println("Painting rooms...")
+    room1.paint()
+    bedroom.paint()
+
+    val tinCoverage = 10.0
+    println("Tins needed for each room:")
+    println("---------------------------------------------------")
+    println("${room1.name} needs ${room1.tinsNeeded(tinCoverage)} tins of paint.")
+    println("---------------------------------------------------")
+    println("${bedroom.name} needs ${bedroom.tinsNeeded(tinCoverage)} tins of paint.")
+
+
+    println("Room details after assigning owners:")
+    room1.info()
     bedroom.info()
-//    kitchen.info()
-
-
+    kitchen.info()
 }
 
 
@@ -123,6 +143,19 @@ class Cat(val name: String, var Legs: Int = 4) {
 
 
 class Room(val name: String, val depth: Int, val width: Int, val height: Int) {
+    var owner: Person1? = null
+    var color : String = "unpainted"
+
+    fun assignOwner(newOwner: Person1) {
+        owner = newOwner
+
+    }
+
+    fun printDetails() {
+
+        println("${name} is owned by ${owner?.name ?: "no owner"}")
+        println("---------------------------------------------------")
+    }
 
     fun volume(): Int {
 
@@ -133,25 +166,66 @@ class Room(val name: String, val depth: Int, val width: Int, val height: Int) {
         val wallArea = 2 * (depth * height + width * height)
         return wallArea
 
+
     }
+    fun paint() {
+        if (owner != null) {
+            color = owner!!.favColour
+
+            println("$name has been painted $color by it's owner ${owner!!.name}.")
+            println("---------------------------------------------------")
+
+        } else {
+            println("$name cannot be painted because it has no owner")
+            println("---------------------------------------------------")
+        }
+    }
+
+    fun tinsNeeded(tinCoverage: Double): Double{
+        val roomArea = area()
+        val tinsRequired = roomArea / tinCoverage
+
+        return tinsRequired
+    }
+
+    fun info() {
+
+        println("Room Name: $name")
+        println("---------------------------------------------------")
+        println("Volume: ${volume()} cubic meters")
+        println("---------------------------------------------------")
+        println("Surface Area: ${area()} square meters")
+        println("---------------------------------------------------")
+        println("Owner: ${owner?.name ?: "No Owner"}")
+        println("---------------------------------------------------")
+    }
+
+
 }
 
 
-class Person(val name: String, var height: Double,  var favColour: String) {
+
+
+class Person1(val name: String, var height: Double,  var favColour: String) {
     fun sayHello() {
+        println("---------------------------------------------------")
         println("Hello, my name is $name!")
+        println("---------------------------------------------------")
     }
+
     fun saycurrentHeight() {
-        println("Hello, my current height is $height")
+        println("Hello, my current height is ${height}m")
+        println("---------------------------------------------------")
     }
+
     fun saycurrentfavColour() {
         println("Hello, my fav colour is $favColour")
+        println("---------------------------------------------------")
     }
+
     fun greet() {
-        println("Hello my name is $name, i am $height tall and my fav color is $favColour")
-    }
-    fun setOwner(newOwner: Person) {
-        bedroom.setOwner(jimmy)
+        println("Hello my name is $name, i am ${height}m tall and my fav color is $favColour")
+        println("---------------------------------------------------")
     }
 
 }
