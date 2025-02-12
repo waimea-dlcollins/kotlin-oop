@@ -32,10 +32,12 @@ fun main() {
 
     val room1 = Room("Test Room", 5, 4, 3)
     println("Volume: ${room1.volume()} cubic meters")
-    println("Surface Area: ${room1.area()} square meters")
+    println("Surface Area: (excluding door and window) ${room1.area()} square meters")
 
     val bedroom = Room("Bedroom", 5, 5, 2 )
     val kitchen = Room("kitchen",2,2,2)
+    val door = Door(1.0, 2.0)
+    val window = Window(1.5, 1.0)
 
 
     val jimmy = Person1("jimmy", 1.95, "teal")
@@ -68,6 +70,8 @@ fun main() {
     room1.info()
     bedroom.info()
     kitchen.info()
+    door.area()
+    window.area()
 }
 
 
@@ -143,6 +147,9 @@ class Cat(val name: String, var Legs: Int = 4) {
 
 
 class Room(val name: String, val depth: Int, val width: Int, val height: Int) {
+    var door: Door? = null
+    var window: Window? = null
+
     var owner: Person1? = null
     var color : String = "unpainted"
 
@@ -194,7 +201,7 @@ class Room(val name: String, val depth: Int, val width: Int, val height: Int) {
         println("---------------------------------------------------")
         println("Volume: ${volume()} cubic meters")
         println("---------------------------------------------------")
-        println("Surface Area: ${area()} square meters")
+        println("Surface Area: (excluding door & window) ${area()} square meters")
         println("---------------------------------------------------")
         println("Owner: ${owner?.name ?: "No Owner"}")
         println("---------------------------------------------------")
@@ -223,14 +230,23 @@ class Person1(val name: String, var height: Double,  var favColour: String) {
         println("---------------------------------------------------")
     }
 
-    fun greet() {
+    fun greet() { 
         println("Hello my name is $name, i am ${height}m tall and my fav color is $favColour")
         println("---------------------------------------------------")
     }
 
 }
+class Door(var width: Double, var height: Double) {
+    fun area(): Double {
+        return width * height
+    }
+}
 
-
+class Window(var width: Double, var height: Double) {
+    fun area(): Double {
+        return width * height
+    }
+}
 
 
 
