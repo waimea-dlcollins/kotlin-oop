@@ -41,8 +41,9 @@ fun main() {
 
 
     val jimmy = Person1("jimmy", 1.95, "teal")
-
-
+    val dave = Person2("dave", 1.92, "brown")
+    val cedric = Person3("cedric", 2.45, "gold")
+    val daivd = Person4("david", 5.65, "turquoise")
 
 
     jimmy.sayHello()
@@ -50,13 +51,34 @@ fun main() {
     jimmy.saycurrentfavColour()
     jimmy.greet()
 
+    dave.sayHello()
+    dave.saycurrentHeight()
+    dave.saycurrentfavColour()
+    dave.greet()
+
+    cedric.sayHello()
+    cedric.saycurrentHeight()
+    cedric.saycurrentfavColour()
+    cedric.greet()
+
+    daivd.sayHello()
+    daivd.saycurrentHeight()
+    daivd.saycurrentfavColour()
+    daivd.greet()
+
     room1.assignOwner(jimmy)
     bedroom.assignOwner(jimmy)
+    kitchen.assignOwner(jimmy)
+    bedroom.printDetails()
     room1.printDetails()
+    kitchen.printDetails()
+
+
 
     println("Painting rooms...")
     room1.paint()
     bedroom.paint()
+    kitchen.paint()
 
     val tinCoverage = 10.0
     println("Tins needed for each room:")
@@ -64,7 +86,7 @@ fun main() {
     println("${room1.name} needs ${room1.tinsNeeded(tinCoverage)} tins of paint.")
     println("---------------------------------------------------")
     println("${bedroom.name} needs ${bedroom.tinsNeeded(tinCoverage)} tins of paint.")
-
+    println("${kitchen.name} needs ${bedroom.tinsNeeded(tinCoverage)} tins of paint.")
 
     println("Room details after assigning owners:")
     room1.info()
@@ -211,7 +233,69 @@ class Room(val name: String, val depth: Int, val width: Int, val height: Int) {
 }
 
 
+class kitchen(val name: String, val depth: Int, val width: Int, val height: Int) {
+    var door: Door? = null
+    var window: Window? = null
 
+    var owner: Person1? = null
+    var color : String = "unpainted"
+
+    fun assignOwner(newOwner: Person1) {
+        owner = newOwner
+
+    }
+
+    fun printDetails() {
+
+        println("${name} is owned by ${owner?.name ?: "no owner"}")
+        println("---------------------------------------------------")
+    }
+
+    fun volume(): Int {
+
+        return depth * width * height
+    }
+
+    fun area(): Int {
+        val wallArea = 2 * (depth * height + width * height)
+        return wallArea
+
+
+    }
+    fun paint() {
+        if (owner != null) {
+            color = owner!!.favColour
+
+            println("$name has been painted $color by it's owner ${owner!!.name}.")
+            println("---------------------------------------------------")
+
+        } else {
+            println("$name cannot be painted because it has no owner")
+            println("---------------------------------------------------")
+        }
+    }
+
+    fun tinsNeeded(tinCoverage: Double): Double{
+        val roomArea = area()
+        val tinsRequired = roomArea / tinCoverage
+
+        return tinsRequired
+    }
+
+    fun info() {
+
+        println("Room Name: $name")
+        println("---------------------------------------------------")
+        println("Volume: ${volume()} cubic meters")
+        println("---------------------------------------------------")
+        println("Surface Area: (excluding door & window) ${area()} square meters")
+        println("---------------------------------------------------")
+        println("Owner: ${owner?.name ?: "No Owner"}")
+        println("---------------------------------------------------")
+    }
+
+
+}
 
 class Person1(val name: String, var height: Double,  var favColour: String) {
     fun sayHello() {
@@ -230,10 +314,11 @@ class Person1(val name: String, var height: Double,  var favColour: String) {
         println("---------------------------------------------------")
     }
 
-    fun greet() { 
+    fun greet() {
         println("Hello my name is $name, i am ${height}m tall and my fav color is $favColour")
         println("---------------------------------------------------")
     }
+
 
 }
 class Door(var width: Double, var height: Double) {
@@ -247,6 +332,111 @@ class Window(var width: Double, var height: Double) {
         return width * height
     }
 }
+class Person2(val name: String, var height: Double,  var favColour: String) {
+    fun sayHello() {
+        println("---------------------------------------------------")
+        println("Hello, my name is $name!")
+        println("---------------------------------------------------")
+    }
+
+    fun saycurrentHeight() {
+        println("Hello, my current height is ${height}m")
+        println("---------------------------------------------------")
+    }
+
+    fun saycurrentfavColour() {
+        println("Hello, my fav colour is $favColour")
+        println("---------------------------------------------------")
+    }
+
+    fun greet() {
+        println("Hello my name is $name, i am ${height}m tall and my fav color is $favColour")
+        println("---------------------------------------------------")
+
+
+        class Door(var width: Double, var height: Double) {
+            fun area(): Double {
+                return width * height
+            }
+        }
+
+        class Window(var width: Double, var height: Double) {
+            fun area(): Double {
+                return width * height
+            }
+        }
+    }
+
+}
+class Person3(val name: String, var height: Double,  var favColour: String) {
+    fun sayHello() {
+        println("---------------------------------------------------")
+        println("Hello, my name is $name!")
+        println("---------------------------------------------------")
+    }
+
+    fun saycurrentHeight() {
+        println("Hello, my current height is ${height}m")
+        println("---------------------------------------------------")
+    }
+
+    fun saycurrentfavColour() {
+        println("Hello, my fav colour is $favColour")
+        println("---------------------------------------------------")
+    }
+
+    fun greet() {
+        println("Hello my name is $name, i am ${height}m tall and my fav color is $favColour")
+        println("---------------------------------------------------")
+
+        class Door(var width: Double, var height: Double) {
+            fun area(): Double {
+                return width * height
+            }
+        }
+
+        class Window(var width: Double, var height: Double) {
+            fun area(): Double {
+                return width * height
+            }
+        }
+    }
+}
+class Person4(val name: String, var height: Double,  var favColour: String) {
+    fun sayHello() {
+        println("---------------------------------------------------")
+        println("Hello, my name is $name!")
+        println("---------------------------------------------------")
+    }
+
+    fun saycurrentHeight() {
+        println("Hello, my current height is ${height}m")
+        println("---------------------------------------------------")
+    }
+
+    fun saycurrentfavColour() {
+        println("Hello, my fav colour is $favColour")
+        println("---------------------------------------------------")
+    }
+
+    fun greet() {
+        println("Hello my name is $name, i am ${height}m tall and my fav color is $favColour")
+        println("---------------------------------------------------")
+        class Door(var width: Double, var height: Double) {
+            fun area(): Double {
+                return width * height
+            }
+        }
+
+        class Window(var width: Double, var height: Double) {
+            fun area(): Double {
+                return width * height
+            }
+        }
+
+    }
+}
+
 
 
 
